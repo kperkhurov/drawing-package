@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  drawing-package:
+    container_name: drawing-package
+    build: .
+    volumes:
+    - ./:/var/www/drawing-package/current
+    expose:
+    - 80

@@ -1,0 +1,46 @@
+parameters:
+    drawing_sdk_package.draw.rectangle: 'rectangle'
+    drawing_sdk_package.draw.square: 'square'
+    drawing_sdk_package.draw.ellipse: 'ellipse'
+    drawing_sdk_package.draw.circle: 'circle'
+
+services:
+    drawing_sdk_package.draw.extractor:
+        class: DrawingSdkPackageBundle\Operation\Draw\Extractor\Extractor
+        arguments:
+            -
+                - '%drawing_package.common.draw.rectangle%'
+                - '%drawing_package.common.draw.square%'
+                - '%drawing_package.common.draw.ellipse%'
+                - '%drawing_package.common.draw.circle%'
+
+    drawing_sdk_package.draw.request_factory:
+        class: DrawingSdkPackageBundle\Operation\Draw\Dto\Request\RequestFactory
+
+    drawing_sdk_package.draw.request_builder:
+        class: DrawingSdkPackageBundle\Operation\Draw\RequestBuilder\RequestBuilder
+        arguments:
+            -
+                '%drawing_package.common.draw.rectangle%': '@drawing_sdk_package.draw.rectangle'
+                '%drawing_package.common.draw.square%': '@drawing_sdk_package.draw.square'
+                '%drawing_package.common.draw.ellipse%': '@drawing_sdk_package.draw.ellipse'
+                '%drawing_package.common.draw.circle%': '@drawing_sdk_package.draw.circle'
+            - '@common.jms.object_builder'
+
+    drawing_sdk_package.draw.rectangle:
+        class: DrawingSdkPackageBundle\Operation\Draw\Dto\Rectangle
+
+    drawing_sdk_package.draw.square:
+        class: DrawingSdkPackageBundle\Operation\Draw\Dto\Square
+
+    drawing_sdk_package.draw.ellipse:
+        class: DrawingSdkPackageBundle\Operation\Draw\Dto\Ellipse
+
+    drawing_sdk_package.draw.circle:
+        class: DrawingSdkPackageBundle\Operation\Draw\Dto\Circle
+
+    common.jms.object_builder:
+        class: CommonBundle\ObjectBuilder\ObjectBuilder
+        arguments:
+            - '@jms_serializer.serializer'
+            - '@logger'

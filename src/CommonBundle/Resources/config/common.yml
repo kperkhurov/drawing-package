@@ -1,0 +1,6 @@
+services:
+    common.jms.object_builder:
+        class: CommonBundle\ObjectBuilder\ObjectBuilder
+        arguments:
+            - '@jms_serializer.serializer'
+            - '@logger'

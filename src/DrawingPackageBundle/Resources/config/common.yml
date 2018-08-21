@@ -1,0 +1,5 @@
+parameters:
+    drawing_package.common.draw.rectangle: 'rectangle'
+    drawing_package.common.draw.square: 'square'
+    drawing_package.common.draw.ellipse: 'ellipse'
+    drawing_package.common.draw.circle: 'circle'

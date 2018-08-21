@@ -1,0 +1,56 @@
+imports:
+- { resource: security.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+  environment: development
+  country_code: ru
+  locale: en
+  application_name: Orders
+  full_application_name: '%environment%_%country_code%_%application_name%'
+
+framework:
+  #esi:             ~
+  #translator:      { fallbacks: ["%locale%"] }
+  secret:          "sE3Cr3TV#LYE|REPLACE_IT_ON_RANDOM_NEW"
+  router:
+    resource: "%kernel.root_dir%/config/routing.yml"
+    strict_requirements: ~
+  form:            ~
+  csrf_protection: ~
+  validation:      { enable_annotations: true }
+  serializer:      { enable_annotations: true }
+  templating:
+    engines: ['twig']
+  default_locale:  "%locale%"
+  trusted_hosts:   ~
+  session:
+    # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+    handler_id:  session.handler.native_file
+    save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+  fragments:       ~
+  http_method_override: true
+  assets: ~
+
+monolog:
+  handlers:
+    # this "file_log" key could be anything
+    file_log_info:
+      type: stream
+      # log to var/log/(environment).log
+      path: "var/log/environmentInfo.log"
+      # log *all* messages (debug is lowest level)
+      level: info
+
+    file_log_error:
+      type: stream
+      # log to var/log/(environment).log
+      path: "var/log/environmentError.log"
+      # log *all* messages (debug is lowest level)
+      level: error
+
+    syslog_handler:
+      type: syslog
+      # log error-level messages and higher
+      level: error

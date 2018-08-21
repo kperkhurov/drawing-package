@@ -1,0 +1,24 @@
+services:
+    drawing_package.draw.service:
+        class: DrawingPackageBundle\Operation\Draw\Service\Service
+        arguments:
+            - '@drawing_package.draw.drawing_builder'
+
+    drawing_package.draw.drawing_builder:
+        class: DrawingPackageBundle\Operation\Draw\DrawingBuilder\Mappable
+        arguments:
+            -
+                '%drawing_package.common.draw.rectangle%': '@drawing_package.draw.drawing_builder.width_height'
+                '%drawing_package.common.draw.square%': '@drawing_package.draw.drawing_builder.size'
+                '%drawing_package.common.draw.ellipse%': '@drawing_package.draw.drawing_builder.diameter'
+                '%drawing_package.common.draw.circle%': '@drawing_package.draw.drawing_builder.size'
+            - '@logger'
+
+    drawing_package.draw.drawing_builder.diameter:
+        class: DrawingPackageBundle\Operation\Draw\DrawingBuilder\Diameter
+
+    drawing_package.draw.drawing_builder.size:
+        class: DrawingPackageBundle\Operation\Draw\DrawingBuilder\Size
+
+    drawing_package.draw.drawing_builder.width_height:
+        class: DrawingPackageBundle\Operation\Draw\DrawingBuilder\WidthHeight

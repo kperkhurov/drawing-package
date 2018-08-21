@@ -1,0 +1,22 @@
+parameters:
+    drawing_package.command.draw.required_value: 2
+
+services:
+    drawing_package.command.draw:
+        class: DrawingPackageBundle\Command\Command
+        arguments:
+            - 'drawing_package:draw'
+            - 'draws widgets'
+            - '@drawing_sdk_package.draw.request_factory'
+            - '@drawing_sdk_package.draw.request_builder'
+            - '@validator'
+            - '@drawing_sdk_package.draw.extractor'
+            - '@drawing_package.draw.service'
+            - '@logger'
+        tags:
+            - { name: console.command }
+        calls:
+            - ['addOption', ['%drawing_package.common.draw.rectangle%', null, '%drawing_package.command.draw.required_value%', '', 'x=10, y=10, width=30, height=40']]
+            - ['addOption', ['%drawing_package.common.draw.square%', null, '%drawing_package.command.draw.required_value%', '','x=15, y=30, size=35']]
+            - ['addOption', ['%drawing_package.common.draw.ellipse%', null, '%drawing_package.command.draw.required_value%', '', 'x=100, y=150, horizontal=300, vertical=200']]
+            - ['addOption', ['%drawing_package.common.draw.circle%', null, '%drawing_package.command.draw.required_value%', '', 'x=1, y=1, size=300']]
