@@ -2,10 +2,9 @@
 
 namespace DrawingSdkPackageBundle\Operation\Draw\RequestBuilder;
 
-use CommonBundle\Test\BaseAbstractTest;
 use CommonBundle\Dto\Type\EmptyObjectType;
 use CommonBundle\ObjectBuilder\ObjectBuilderInterface;
-use DrawingSdkPackageBundle\Operation\Draw\Dto\Circle;
+use CommonBundle\Test\BaseAbstractTest;
 use DrawingSdkPackageBundle\Operation\Draw\Dto\Rectangle;
 use DrawingSdkPackageBundle\Operation\Draw\Dto\Request\Request;
 use DrawingSdkPackageBundle\Operation\Draw\Dto\Square;
