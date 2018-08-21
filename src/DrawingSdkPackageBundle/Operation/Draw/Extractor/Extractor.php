@@ -3,20 +3,27 @@
 namespace DrawingSdkPackageBundle\Operation\Draw\Extractor;
 
 use CommonBundle\Extractor\ExtractorInterface;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 
 final class Extractor implements ExtractorInterface
 {
+    use LoggerAwareTrait;
+
     /**
      * @var string[]
      */
-    private $rectangles;
+    private $widgetList;
 
     /**
-     * @param string[] $rectangles
+     * @param string[] $widgetList
+     * @param LoggerInterface $logger
      */
-    public function __construct(array $rectangles)
+    public function __construct(array $widgetList, LoggerInterface $logger)
     {
-        $this->rectangles = $rectangles;
+        $this->setLogger($logger);
+
+        $this->widgetList = $widgetList;
     }
 
     /**
@@ -26,17 +33,18 @@ final class Extractor implements ExtractorInterface
     {
         $list = [];
 
-        foreach ($this->rectangles as $rectangle) {
-            $rectangleParams = $data[$rectangle] ?? null;
+        foreach ($this->widgetList as $widget) {
+            $widgetParams = $data[$widget] ?? null;
 
-            if (null !== $rectangleParams) {
-                $list[$rectangle] = $this->extractParameters($rectangleParams);
+            if (null !== $widgetParams && stristr($widgetParams, ',') && stristr($widgetParams, '=')) {
+                $list[$widget] = $this->extractParameters($widgetParams);
+            } else {
+                $this->logger->error(sprintf("Unsupported widget type '%s'", $widget));
             }
         }
 
         return $list;
     }
-
 
     /**
      * @param string $extractable
@@ -47,11 +55,9 @@ final class Extractor implements ExtractorInterface
         $list = [];
 
         foreach (explode(',', $extractable) as $parameters) {
-            foreach (explode(',', $parameters) as $parameter) {
-                list($name, $val) = explode('=', $parameter);
+            list($name, $val) = explode('=', $parameters);
 
-                $list[trim($name)] = trim($val);
-            }
+            $list[trim($name)] = trim($val);
         }
 
         return $list;

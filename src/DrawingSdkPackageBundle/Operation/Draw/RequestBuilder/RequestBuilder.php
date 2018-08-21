@@ -20,12 +20,12 @@ final class RequestBuilder implements ObjectBuilderInterface
     private $objectBuilder;
 
     /**
-     * @param WidgetInterface[] $rectangles
+     * @param WidgetInterface[] $widgetList
      * @param ObjectBuilderInterface $objectBuilder
      */
-    public function __construct(array $rectangles, ObjectBuilderInterface $objectBuilder)
+    public function __construct(array $widgetList, ObjectBuilderInterface $objectBuilder)
     {
-        $this->widgetList = $rectangles;
+        $this->widgetList = $widgetList;
         $this->objectBuilder = $objectBuilder;
     }
 

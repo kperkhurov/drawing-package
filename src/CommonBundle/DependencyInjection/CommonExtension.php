@@ -4,7 +4,7 @@ namespace CommonBundle\DependencyInjection;
 
 use CommonBundle\Extension\BaseExtension;
 
-final class CommonBundleExtension extends BaseExtension
+final class CommonExtension extends BaseExtension
 {
     /*_*/
 }

@@ -13,6 +13,7 @@ services:
                 - '%drawing_package.common.draw.square%'
                 - '%drawing_package.common.draw.ellipse%'
                 - '%drawing_package.common.draw.circle%'
+            - '@logger'
 
     drawing_sdk_package.draw.request_factory:
         class: DrawingSdkPackageBundle\Operation\Draw\Dto\Request\RequestFactory
@@ -38,9 +39,3 @@ services:
 
     drawing_sdk_package.draw.circle:
         class: DrawingSdkPackageBundle\Operation\Draw\Dto\Circle
-
-    common.jms.object_builder:
-        class: CommonBundle\ObjectBuilder\ObjectBuilder
-        arguments:
-            - '@jms_serializer.serializer'
-            - '@logger'
